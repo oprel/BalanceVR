@@ -25,16 +25,24 @@ namespace Oculus.Platform
       }
       var appID = PlatformSettings.AppID;
 #endif
-      if (String.IsNullOrEmpty(StandalonePlatformSettings.OculusPlatformTestUserAccessToken))
+      if (String.IsNullOrEmpty(StandalonePlatformSettings.OculusPlatformTestUserEmail))
       {
-        throw new UnityException("Update your standalone credentials by selecting 'Oculus Platform' -> 'Edit Settings'");
+        throw new UnityException("Update your standalone email address by selecting 'Oculus Platform' -> 'Edit Settings'");
       }
-      var accessToken = StandalonePlatformSettings.OculusPlatformTestUserAccessToken;
-
+      if (String.IsNullOrEmpty(StandalonePlatformSettings.OculusPlatformTestUserPassword))
+      {
+        throw new UnityException("Update your standalone user password by selecting 'Oculus Platform' -> 'Edit Settings'");
+      }
       CAPI.ovr_UnityResetTestPlatform();
       CAPI.ovr_UnityInitGlobals(IntPtr.Zero);
 
-      return new Request<Models.PlatformInitialize>(CAPI.ovr_PlatformInitializeWithAccessToken(UInt64.Parse(appID), accessToken));
+      CAPI.OculusInitParams init = new CAPI.OculusInitParams();
+      init.sType = 1; // ovrPlatformStructureType_OculusInitParams
+      init.appId = UInt64.Parse(appID);
+      init.email = StandalonePlatformSettings.OculusPlatformTestUserEmail;
+      init.password = StandalonePlatformSettings.OculusPlatformTestUserPassword;
+
+      return new Request<Models.PlatformInitialize>(CAPI.ovr_Platform_InitializeStandaloneOculus(ref init));
     }
   }
 }

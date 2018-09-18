@@ -1,9 +1,9 @@
 /************************************************************************************
 
-Copyright   :   Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.
+Copyright   :   Copyright 2017 Oculus VR, LLC. All Rights reserved.
 
-Licensed under the Oculus SDK License Version 3.4.1 (the "License");
-you may not use the Oculus SDK except in compliance with the License,
+Licensed under the Oculus VR Rift SDK License Version 3.4.1 (the "License");
+you may not use the Oculus VR Rift SDK except in compliance with the License,
 which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
 
@@ -11,7 +11,7 @@ You may obtain a copy of the License at
 
 https://developer.oculus.com/licenses/sdk-3.4.1
 
-Unless required by applicable law or agreed to in writing, the Oculus SDK
+Unless required by applicable law or agreed to in writing, the Oculus VR SDK
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
@@ -35,7 +35,7 @@ using Assets.OVR.Scripts;
 ///Preload audio setting on individual audio clips
 ///Decompressing audio clips on load
 ///Disabling occlusion mesh
-///Android target API level set to 21 or higher
+///Android target API level set to 19 or higher
 ///Unity skybox use (on by default, but if you can't see the skybox switching to Color is much faster on Gear)
 ///Lights marked as "baked" but that were not included in the last bake (and are therefore realtime).
 ///Lack of static batching and dynamic batching settings activated.
@@ -227,11 +227,6 @@ public class OVRLint : EditorWindow
 
 	static void CheckStaticCommonIssues()
 	{
-		if (OVRManager.IsUnityAlphaOrBetaVersion())
-		{
-			AddFix("General", OVRManager.UnityAlphaOrBetaVersionWarningMessage, null, null);
-		}
-
 		if (QualitySettings.anisotropicFiltering != AnisotropicFiltering.Enable && QualitySettings.anisotropicFiltering != AnisotropicFiltering.ForceEnable)
 		{
 			AddFix("Optimize Aniso", "Anisotropic filtering is recommended for optimal image sharpness and GPU performance.", delegate (UnityEngine.Object obj, bool last, int selected)
@@ -282,16 +277,6 @@ public class OVRLint : EditorWindow
 #endif
 			}, null, "Fix");
 		}
-
-#if UNITY_ANDROID
-		if (!PlayerSettings.use32BitDisplayBuffer)
-		{
-			AddFix("Optimize Display Buffer Format", "We recommend to enable use32BitDisplayBuffer.", delegate (UnityEngine.Object obj, bool last, int selected)
-			{
-				PlayerSettings.use32BitDisplayBuffer = true;
-			}, null, "Fix");
-		}
-#endif
 
 		BuildTargetGroup target = EditorUserBuildSettings.selectedBuildTargetGroup;
 		var tier = UnityEngine.Rendering.GraphicsTier.Tier1;
@@ -487,32 +472,6 @@ public class OVRLint : EditorWindow
 				}
 			}, null, "Fix");
 		}
-
-		var splashScreen = PlayerSettings.virtualRealitySplashScreen;
-		if (splashScreen != null)
-		{
-			if (splashScreen.filterMode != FilterMode.Trilinear)
-			{
-				AddFix("Optimize VR Splash Filtering", "For visual quality, please use trilinear filtering on your VR splash screen.", delegate (UnityEngine.Object obj, bool last, int EditorSelectedRenderState)
-				{
-					var assetPath = AssetDatabase.GetAssetPath(splashScreen);
-					var importer = (TextureImporter)TextureImporter.GetAtPath(assetPath);
-					importer.filterMode = FilterMode.Trilinear;
-					AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
-				}, null, "Fix");
-			}
-
-			if (splashScreen.mipmapCount <= 1)
-			{
-				AddFix("Generate VR Splash Mipmaps", "For visual quality, please use mipmaps with your VR splash screen.", delegate (UnityEngine.Object obj, bool last, int EditorSelectedRenderState)
-				{
-					var assetPath = AssetDatabase.GetAssetPath(splashScreen);
-					var importer = (TextureImporter)TextureImporter.GetAtPath(assetPath);
-					importer.mipmapEnabled = true;
-					AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
-				}, null, "Fix");
-			}
-		}
 	}
 
 	static void CheckRuntimeCommonIssues()
@@ -552,7 +511,7 @@ public class OVRLint : EditorWindow
 
 	static void CheckStaticAndroidIssues()
 	{
-		AndroidSdkVersions recommendedAndroidSdkVersion = AndroidSdkVersions.AndroidApiLevel21;
+		AndroidSdkVersions recommendedAndroidSdkVersion = AndroidSdkVersions.AndroidApiLevel19;
 		if ((int)PlayerSettings.Android.minSdkVersion < (int)recommendedAndroidSdkVersion)
 		{
 			AddFix("Optimize Android API Level", "To avoid legacy workarounds, please require at least API level " + (int)recommendedAndroidSdkVersion, delegate (UnityEngine.Object obj, bool last, int selected)

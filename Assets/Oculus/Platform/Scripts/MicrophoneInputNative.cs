@@ -1,9 +1,7 @@
-//This file is deprecated.  Use the high level voip system instead:
-// https://developer.oculus.com/documentation/platform/latest/concepts/dg-cc-voip/
-
-#if false
 using UnityEngine;
+using System.Collections;
 using System;
+using System.Runtime.InteropServices;
 
 namespace Oculus.Platform
 {
@@ -47,4 +45,3 @@ namespace Oculus.Platform
     }
   }
 }
-#endif
