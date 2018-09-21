@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 64489052071435846}
   - component: {fileID: 54405644774086760}
   - component: {fileID: 114202463364318652}
+  - component: {fileID: 114654848763401786}
   m_Layer: 0
   m_Name: UFO1
   m_TagString: Building
@@ -143,3 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdb905aa551b11d43a72f0f5a16685c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114654848763401786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172429514198802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853541e5c631a2047bc12bd4a4f1e81b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  absoluteParent: 0
+  partofStack: 0

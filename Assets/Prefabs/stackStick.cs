@@ -14,26 +14,54 @@ public class stackStick : MonoBehaviour {
 		originalScale = transform.localScale;
 	}
 
-	private void OnCollisionEnter(Collision col) {
-		if (partofStack) return;
-		stackStick other  = col.transform.GetComponent<stackStick>();
-		if (other && (other.partofStack || other.absoluteParent)){
-			partofStack = true;
-			parent = other;
-			//transform.parent = parent.transform;
-			transform.SetParent(other.transform,true);
+	private void Update() {
+		if (partofStack){
+			if (transform.position.y<parent.transform.position.y){
+				stackRemove(parent);
+			}
 		}
 	}
 
-	
-	private void OnCollisionExit(Collision col) {
-		if (!partofStack) return;
-		stackStick other  = col.transform.GetComponent<stackStick>();
+	private void OnCollisionEnter(Collision other) {
+		if (!partofStack)
+			stackAdd(getOther(other));
+	}
+
+	private void OnCollisionStay(Collision other) {
+		if (!partofStack)
+			stackAdd(getOther(other));
+	}
+
+	private void OnCollisionExit(Collision other) {
+		if (partofStack)
+			stackRemove(getOther(other));
+		
+	}
+
+	private void stackAdd(stackStick other){
+		if (other && (other.partofStack || other.absoluteParent)){
+			partofStack = true;
+			parent = other;
+			transform.SetParent(other.transform);
+		}
+	}
+
+	private void stackRemove(stackStick other){
 		if (other && other == parent){
 			partofStack = false;
 			parent = null;
 			transform.parent=null;
 			transform.localScale=originalScale;
 		}
+	}
+
+	private stackStick getOther(Collision col){
+		Transform p = col.transform.parent;
+		if (!p){
+			return null;
+		}else{
+			return p.GetComponent<stackStick>();
+		}
+		
 	}
 }
