@@ -6,9 +6,10 @@ public class stackStick : MonoBehaviour {
 
 
 	public bool absoluteParent;
-	[HideInInspector] public bool partofStack;
-	private stackStick parent;
 	private Vector3 originalScale;
+	[HideInInspector] public bool partofStack;
+	[HideInInspector] public stackStick parent;
+	
 	
 	private void Awake() {
 		originalScale = transform.localScale;
