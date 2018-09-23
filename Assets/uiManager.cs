@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class uiManager : MonoBehaviour {
 	public Text scoreDisplay;
+	public Text currentPlayer;
 
 	private void Update() {
 		string s = "";
@@ -13,6 +14,9 @@ public class uiManager : MonoBehaviour {
 					p.name + "</color>: " + p.score + "\n";
 		}
 		scoreDisplay.text = s;
+
+		currentPlayer.text = gameManager.currentPlayer.name + "'s turn";
+		currentPlayer.color = gameManager.currentPlayer.color;
 
 	}
 }
