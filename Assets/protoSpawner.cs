@@ -24,13 +24,15 @@ public class protoSpawner : MonoBehaviour {
 		
 	}
 
-	public void SpawnBlock(Vector2 offset){
+	public GameObject SpawnBlock(Vector2 offset){
 		Vector3 pos = new Vector3(offset.x, 0, offset.y);
 		GameObject b = Instantiate(blocks[Random.Range(0,blocks.Length)],transform);
 		b.transform.position += pos;
+		return b;
 	}
 
 	private void OnDrawGizmos() {
-		Gizmos.DrawWireSphere(transform.position,radius);
+		UnityEditor.Handles.color = Color.red;
+		UnityEditor.Handles.DrawWireDisc(transform.position , transform.up, radius);
 	}
 }

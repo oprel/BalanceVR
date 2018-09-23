@@ -258,6 +258,7 @@ MonoBehaviour:
   pointMask:
     serializedVersion: 2
     m_Bits: 256
+  renderer: {fileID: 23102152858762966}
 --- !u!114 &114849870734418158
 MonoBehaviour:
   m_ObjectHideFlags: 1

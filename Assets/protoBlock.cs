@@ -7,6 +7,8 @@ public class protoBlock : MonoBehaviour {
 	private stackStick stackStick;
 	public int points = 0;
 	public LayerMask pointMask;
+	public MeshRenderer renderer;
+	private Color color;
 
 	private void Awake() {
 		//transform.rotation = Random.rotation;
@@ -16,7 +18,7 @@ public class protoBlock : MonoBehaviour {
 	private void Update() {
 		if (!end && transform.position.y<.2f){
 			end=true;
-			Destroy(gameObject,3);
+			Destroy(gameObject,1.5f);
 		}
 
 		if (stackStick.partofStack){
@@ -29,6 +31,12 @@ public class protoBlock : MonoBehaviour {
 			}
 
 		}
+	}
+
+	public void setColor(Color c){
+		color = c;
+		renderer.material = new Material(renderer.material);
+		renderer.material.color = c;
 	}
 	
 }

@@ -25,7 +25,7 @@ public class positionPickerUI : MonoBehaviour {
 		if (localCursor.magnitude>rectTransform.sizeDelta.x/2) 
 			return;
 		 Vector2 relPos = localCursor / rectTransform.sizeDelta.x;
-		 protoSpawner.self.SpawnBlock(relPos);
+		 gameManager.placeBlock(relPos);
     }
 
 }
