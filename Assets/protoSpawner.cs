@@ -8,14 +8,23 @@ public class protoSpawner : MonoBehaviour {
 	public float radius = 3;
 	public float frequency = 2;
 	public GameObject[] blocks;
+	public Transform earth;
+	public float height;
+
 	private float timer = 0;
+
 
 	private void Awake() {
 		self = this;
 	}
 	void Update () {
+		if (earth){
+			Vector3 pos = earth.position;
+			pos.y+=height;
+			transform.position =  pos;
+		}
 		if (frequency>0){
-		timer += Time.deltaTime;
+			timer += Time.deltaTime;
 			if (timer>frequency){
 				SpawnBlock(Random.insideUnitCircle * radius);
 				timer=0;

@@ -18,7 +18,7 @@ public class protoBlock : MonoBehaviour {
 	private void Update() {
 		if (!end && transform.position.y<.2f){
 			end=true;
-			Destroy(gameObject,1.5f);
+			Destroy(gameObject,Random.Range(.5f,3f));
 		}
 
 		if (stackStick.partofStack){

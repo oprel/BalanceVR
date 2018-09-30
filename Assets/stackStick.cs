@@ -17,7 +17,7 @@ public class stackStick : MonoBehaviour {
 
 	private void Update() {
 		if (partofStack){
-			if (transform.position.y<parent.transform.position.y){
+			if (transform.position.y<=parent.transform.position.y){
 				stackRemove(parent);
 			}
 		}
