@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class uiManager : MonoBehaviour {
 	public Text scoreDisplay;
 	public Text currentPlayer;
+	public TextMesh blockCount;
 
 	private void Update() {
 		string s = "";
@@ -17,6 +18,7 @@ public class uiManager : MonoBehaviour {
 
 		currentPlayer.text = gameManager.currentPlayer.name + "'s turn";
 		currentPlayer.color = gameManager.currentPlayer.color;
+		blockCount.text = gameManager.blocks.Count.ToString();
 
 	}
 }

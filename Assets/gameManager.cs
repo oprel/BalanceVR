@@ -7,13 +7,21 @@ public class gameManager : MonoBehaviour {
 	public static gameManager self;
 	public static player currentPlayer;
 	public static List<player> players = new List<player>();
+	public static List<GameObject> blocks = new List<GameObject>();
+	public static int currentRound;
 	public Color[] colors;
+	public int roundAmount;
+
 	public protoSpawner spawner;
+
+	private static float previousPlacement;
+
 	
 	public class player
 	{	
 		public int i;
 		public int score;
+		public int hardScore;
 		public string name;
 		public Color color;
 		public List<protoBlock> placedBlocks;
@@ -40,6 +48,9 @@ public class gameManager : MonoBehaviour {
 	}
 
 	public static void placeBlock(Vector2 pos){
+		if (Time.time - previousPlacement < .5f)
+			return;
+		previousPlacement = Time.time;
 		GameObject obj = self.spawner.SpawnBlock(pos);
 		protoBlock block = obj.GetComponent<protoBlock>();
 		block.setColor(currentPlayer.color);

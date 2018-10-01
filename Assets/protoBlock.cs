@@ -13,11 +13,13 @@ public class protoBlock : MonoBehaviour {
 	private void Awake() {
 		//transform.rotation = Random.rotation;
 		stackStick = GetComponent<stackStick>();
+		gameManager.blocks.Add(gameObject);
 	}
 
 	private void Update() {
 		if (!end && transform.position.y<.2f){
 			end=true;
+			gameManager.blocks.Remove(gameObject);
 			Destroy(gameObject,Random.Range(.5f,3f));
 		}
 
