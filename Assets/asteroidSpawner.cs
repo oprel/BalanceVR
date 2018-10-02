@@ -26,6 +26,7 @@ public class asteroidSpawner : MonoBehaviour {
 		Vector3 pos;
 		do{
 			pos = Random.insideUnitSphere * outerRadius;
+			pos.y = Mathf.Abs(pos.y);
 		}while(pos.magnitude<innerRadius);
 		GameObject o = Instantiate(asteroid, transform);
 		o.transform.position = pos + transform.position;

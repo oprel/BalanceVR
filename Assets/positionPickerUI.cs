@@ -24,7 +24,7 @@ public class positionPickerUI : MonoBehaviour {
             return;
 		if (localCursor.magnitude>rectTransform.sizeDelta.x/2) 
 			return;
-		 Vector2 relPos = localCursor / rectTransform.sizeDelta.x;
+		 Vector2 relPos = 2*localCursor / rectTransform.sizeDelta.x;
 		 gameManager.placeBlock(relPos);
     }
 

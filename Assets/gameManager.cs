@@ -45,6 +45,7 @@ public class gameManager : MonoBehaviour {
 			players.Add(p);
 		}
 		currentPlayer = players[0];
+		currentRound = 1;
 	}
 
 	public static void placeBlock(Vector2 pos){
@@ -53,9 +54,12 @@ public class gameManager : MonoBehaviour {
 		previousPlacement = Time.time;
 		GameObject obj = self.spawner.SpawnBlock(pos);
 		protoBlock block = obj.GetComponent<protoBlock>();
-		block.setColor(currentPlayer.color);
+		block.init(currentPlayer);
 		currentPlayer.placedBlocks.Add(block);
-		currentPlayer = players[(currentPlayer.i+1)%players.Count];
+		
+		int i = (currentPlayer.i+1)%players.Count;
+		if (i==0) nextRound();
+		currentPlayer = players[i];
 	}
 
 	private void Update() {
@@ -67,4 +71,24 @@ public class gameManager : MonoBehaviour {
 			}
 		}
 	}
+
+	public static void nextRound(){
+		currentRound++;
+		foreach (player p in players){
+			p.hardScore+=p.score;
+		}
+		players.Sort((IComparer<player>)new sort());
+		for (int i = 0; i <players.Count; i++)
+		{
+			players[i].i=i;
+		}
+	}
+
+	 private class sort : IComparer<player>{
+         int IComparer<player>.Compare(player A, player B) {
+             return B.hardScore.CompareTo(A.hardScore);
+         }
+	 }
 }
+
+

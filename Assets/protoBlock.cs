@@ -8,7 +8,7 @@ public class protoBlock : MonoBehaviour {
 	public int points = 0;
 	public LayerMask pointMask;
 	public MeshRenderer renderer;
-	private Color color;
+	private gameManager.player player;
 
 	private void Awake() {
 		//transform.rotation = Random.rotation;
@@ -17,12 +17,14 @@ public class protoBlock : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (!end && transform.position.y<.2f){
+		points=0;
+		if (!end && transform.position.y<-.2f){
 			end=true;
 			gameManager.blocks.Remove(gameObject);
+			player.placedBlocks.Remove(this);
 			Destroy(gameObject,Random.Range(.5f,3f));
 		}
-
+		
 		if (stackStick.partofStack){
 			Transform parent = stackStick.parent.transform;
 			RaycastHit hit;
@@ -35,10 +37,10 @@ public class protoBlock : MonoBehaviour {
 		}
 	}
 
-	public void setColor(Color c){
-		color = c;
+	public void init(gameManager.player p){
+		player = p;
 		renderer.material = new Material(renderer.material);
-		renderer.material.color = c;
+		renderer.material.color = p.color;
 	}
 	
 }

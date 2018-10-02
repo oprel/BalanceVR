@@ -28,7 +28,7 @@ public class protoSpawner : MonoBehaviour {
 		if (frequency>0){
 			timer += Time.deltaTime;
 			if (timer>frequency){
-				SpawnBlock(Random.insideUnitCircle * radius);
+				SpawnBlock(Random.insideUnitCircle);
 				timer=0;
 			}
 		}
@@ -36,6 +36,7 @@ public class protoSpawner : MonoBehaviour {
 	}
 
 	public GameObject SpawnBlock(Vector2 offset){
+		offset*=radius;
 		Vector3 pos = new Vector3(offset.x, 0, offset.y);
 		GameObject b = Instantiate(blockPrefabs[Random.Range(0,blockPrefabs.Length)],transform);
 		b.transform.position += pos;
