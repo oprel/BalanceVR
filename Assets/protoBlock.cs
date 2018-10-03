@@ -21,7 +21,7 @@ public class protoBlock : MonoBehaviour {
 		if (!end && transform.position.y<-.2f){
 			end=true;
 			gameManager.blocks.Remove(gameObject);
-			player.placedBlocks.Remove(this);
+			if (player != null) player.placedBlocks.Remove(this);
 			Destroy(gameObject,Random.Range(.5f,3f));
 		}
 		

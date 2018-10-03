@@ -9,6 +9,8 @@ public class asteroidSpawner : MonoBehaviour {
 	public float frequency;
 	public GameObject asteroid;
 	public Transform target;
+    public float speedMax;
+
 
 	private float timer;
 
@@ -31,7 +33,7 @@ public class asteroidSpawner : MonoBehaviour {
 		GameObject o = Instantiate(asteroid, transform);
 		o.transform.position = pos + transform.position;
 		o.transform.LookAt(target);
-		float speed = Random.Range(2,10);
+		float speed = Random.Range(1,speedMax);
 		o.GetComponent<Rigidbody>().velocity = o.transform.forward * speed;
 	}
 

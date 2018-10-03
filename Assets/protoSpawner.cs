@@ -24,6 +24,10 @@ public class protoSpawner : MonoBehaviour {
 			Vector3 pos = earth.position;
 			pos.y+=height;
 			transform.position =  pos;
+            Quaternion rot = transform.rotation;
+            rot.y = earth.transform.rotation.y;
+            transform.rotation = rot;
+
 		}
 		if (frequency>0){
 			timer += Time.deltaTime;

@@ -7,8 +7,8 @@ public class stackStick : MonoBehaviour {
 
 	public bool absoluteParent;
 	private Vector3 originalScale;
-	[HideInInspector] public bool partofStack;
-	[HideInInspector] public stackStick parent;
+	public bool partofStack;
+	public stackStick parent;
 	
 	
 	private void Awake() {
@@ -17,7 +17,7 @@ public class stackStick : MonoBehaviour {
 
 	private void Update() {
 		if (partofStack){
-			if (transform.position.y<=parent.transform.position.y){
+			if (transform.position.y<parent.transform.position.y-.5f){
 				stackRemove(parent);
 			}
 		}
@@ -26,6 +26,7 @@ public class stackStick : MonoBehaviour {
 	private void OnCollisionEnter(Collision other) {
 		if (!partofStack)
 			stackAdd(getOther(other));
+        //Debug.Log(other.gameObject.name);
 	}
 
 	private void OnCollisionStay(Collision other) {
@@ -57,12 +58,14 @@ public class stackStick : MonoBehaviour {
 	}
 
 	private stackStick getOther(Collision col){
-		Transform p = col.transform.parent;
-		if (!p){
-			return null;
-		}else{
-			return p.GetComponent<stackStick>();
-		}
+        Transform p = col.transform.parent;
+        if (p)
+        {
+
+            return p.GetComponent<stackStick>(); ;
+        }
+   
+        return null;
 		
 	}
 }

@@ -22,9 +22,9 @@ public class asteroid : MonoBehaviour {
 
 	IEnumerator explode(){
 		particleSystem.Play();
-		sphereCollider.radius*=4;
+		sphereCollider.radius*=8;
 		yield return null;
-		sphereCollider.radius/=4;
+		sphereCollider.radius/=8;
 		exploding = null;
 		Destroy(gameObject,Random.Range(2,5));
 		
