@@ -20,12 +20,12 @@ public class giveName : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        /* 
         playername1.text = playernamestr1;
         playername2.text = playernamestr2;
         playername3.text = playernamestr3;
         playername4.text = playernamestr4;
-
+*/
     }
 	
 	// Update is called once per frame

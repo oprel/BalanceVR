@@ -25,7 +25,7 @@ public class protoBlock : MonoBehaviour {
 			Destroy(gameObject,Random.Range(.5f,3f));
 		}
 		
-		if (stackStick.partofStack){
+		if (stackStick.partofStack && !gameManager.endOfGame){
 			Transform parent = stackStick.parent.transform;
 			RaycastHit hit;
 			if (Physics.Raycast(transform.position, parent.TransformDirection(-Vector3.up), out hit, Mathf.Infinity, pointMask)){

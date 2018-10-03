@@ -7,7 +7,10 @@ public class uiManager : MonoBehaviour {
 	public Text scoreDisplay;
 	public Text currentPlayer;
 	public Text roundDisplay;
-	public TextMesh blockCount;
+	public Text blockCount;
+	public Text endOfGame;
+	public TextMesh blockCountVR;
+	public TextMesh roundDisplayVR;
 
 	private void Update() {
 		string s = "";
@@ -21,8 +24,19 @@ public class uiManager : MonoBehaviour {
 
 		currentPlayer.text = gameManager.currentPlayer.name + "'s turn";
 		currentPlayer.color = gameManager.currentPlayer.color;
-		blockCount.text = gameManager.blocks.Count.ToString();
-		roundDisplay.text = "ROUND " + gameManager.currentRound.ToString() + "/" + gameManager.self.roundAmount.ToString();
+		string b = gameManager.hardScoreVR.ToString();
+		if (gameManager.blocks.Count>0) b+= "(+" + gameManager.blocks.Count.ToString() + ")";
+		blockCount.text = "VR SCORE: " + b;
+		blockCountVR.text=b;
+		string round = "ROUND " + gameManager.currentRound.ToString() + "/" + gameManager.self.roundAmount.ToString();
+		roundDisplay.text = round;
+		roundDisplayVR.text = round;
+
+		if (gameManager.endOfGame){
+			endOfGame.enabled = true;
+			endOfGame.text = gameManager.players[0].name+ " wins!";
+			endOfGame.color = gameManager.players[0].color;
+		}
 
 	}
 }

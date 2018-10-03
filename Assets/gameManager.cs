@@ -9,8 +9,10 @@ public class gameManager : MonoBehaviour {
 	public static List<player> players = new List<player>();
 	public static List<GameObject> blocks = new List<GameObject>();
 	public static int currentRound;
+	public static int hardScoreVR =0;
 	public Color[] colors;
 	public int roundAmount;
+	public static bool endOfGame;
 
 	public protoSpawner spawner;
 
@@ -49,7 +51,7 @@ public class gameManager : MonoBehaviour {
 	}
 
 	public static void placeBlock(Vector2 pos){
-		if (Time.time - previousPlacement < .5f)
+		if (Time.time - previousPlacement < .5f || endOfGame)
 			return;
 		previousPlacement = Time.time;
 		GameObject obj = self.spawner.SpawnBlock(pos);
@@ -73,7 +75,7 @@ public class gameManager : MonoBehaviour {
 	}
 
 	public static void nextRound(){
-		currentRound++;
+		
 		foreach (player p in players){
 			p.hardScore+=p.score;
 		}
@@ -82,6 +84,13 @@ public class gameManager : MonoBehaviour {
 		{
 			players[i].i=i;
 		}
+		hardScoreVR += blocks.Count;
+		if (currentRound==self.roundAmount){
+			endOfGame = true;
+			blocks = new List<GameObject>();
+		}else{
+			currentRound++;
+		}
 	}
 
 	 private class sort : IComparer<player>{
@@ -89,6 +98,7 @@ public class gameManager : MonoBehaviour {
              return B.hardScore.CompareTo(A.hardScore);
          }
 	 }
+
 }
 
 
